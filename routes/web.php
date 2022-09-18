@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
     Route::get('DeleteAlbum/{id}', '\App\Http\Controllers\AlbumController@DeleteAlbum')->name('DeleteAlbum');
     Route::get('EditAlbum/{album}', '\App\Http\Controllers\AlbumController@EditAlbum')->name('EditAlbum');//view edit form
     Route::post('UpdateAlbum/{album}', '\App\Http\Controllers\AlbumController@UpdateAlbum')->name('UpdateAlbum');
+    Route::get('DeleteOptions/{album}','\App\Http\Controllers\AlbumController@DeleteOptions')->name('Album.DeleteOptions');
+    Route::post('moveImages/{id}','\App\Http\Controllers\AlbumController@moveImages')->name('Album.moveImages');
 ########### End Album ############
 
 //-----------------------------------

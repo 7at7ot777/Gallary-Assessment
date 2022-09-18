@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,13 +27,14 @@ class AlbumController extends Controller
     }
 
     public function index(){
-        $albums = Album::select()->where('user_id',Auth::id())->get();
+        $albums = Album::select()->where('user_id',Auth::id())->where('isDeleted',0)->get();
 
         return view('Album.index',compact('albums'));
     }
 
     public function DeleteAlbum($id){
-        Album::destroy($id);
+        $Album = Album::find($id);
+        $Album->forceDelete();
         return redirect('AllAlbum')->with(['message'=>'Album Deleted Successfully']);
     }
 
@@ -48,5 +50,20 @@ class AlbumController extends Controller
        $album->name = $request->name;
        $album->save();
         return redirect('AllAlbum')->with(['message'=>'Album name edited successfully']);
+    }
+    public function DeleteOptions(Album $album){
+    $albums = Album::select()->where('user_id',Auth::id())->where('isDeleted',0)->get();
+
+        return view('Album.deleteOptions',compact('album','albums'));
+    }
+
+    public function moveImages(Request $request,$id){ //the id in the parameter is for the album to be deleted
+       Image::select()->where('album_id',$id)->update(['album_id'=>$request->album_id]);
+        $album = Album::find($id);
+        $album->isDeleted=1;
+        $album->save();
+        return redirect('AllAlbum')->with(['message'=>'album deleted successfully']);
+
+
     }
 }

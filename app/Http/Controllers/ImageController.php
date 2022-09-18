@@ -27,7 +27,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        $albums = Album::select('name','id')->where('user_id',Auth::id())->get();
+        $albums = Album::select('name','id')->where('user_id',Auth::id())->where('isDeleted',0)->get();
         return view('Image.create',compact('albums'));
     }
 

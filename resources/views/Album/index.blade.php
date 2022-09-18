@@ -33,7 +33,7 @@
                         <a href="{{route('EditAlbum',$album->id)}}">
                             <button type="button" class="btn btn-warning">Edit Album</button>
                         </a>
-                        <a href="{{route('DeleteAlbum',$album->id)}}">
+                        <a href="{{route('Album.DeleteOptions',$album->id)}}">
                             <button type="button" class="btn btn-danger" onclick="popUp()">Delete Options</button>
                         </a>
 
